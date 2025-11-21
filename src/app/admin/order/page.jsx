@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import * as React from "react"
 import { Calendar } from "@/components/ui/calendar"
@@ -18,11 +19,11 @@ import {
     TableCell
 } from "@/components/ui/table"
 
-import {orderData} from "@/app/constants/data"   
+import { orderData } from "@/app/constants/data"
 
-export default function Page(){
-    
-    const [objData,setObjData]=useState(orderData)
+export default function Page() {
+    const router = useRouter();
+    const [objData, setObjData] = useState(orderData)
 
     // ---------------- Pagination State ----------------
     const [currentPage, setCurrentPage] = useState(1);
@@ -62,111 +63,120 @@ export default function Page(){
     };
 
 
-    return(
+    return (
         <>
-        <div className="text-white px-5 pt-8">
+            <div className="text-white px-5 pt-8">
 
-            <div className="flex items-center justify-between">
-                <h1 className="text-[32px] font-semibold uppercase">Orders</h1>
-                <button className="bg-[#FFFFFF29] border border-[#FFFFFF3D] ">ss</button>
-            </div>
-        
-            <Table className='mt-8'>
-                <TableHeader>
-                    <TableRow className='bg-[#FFFFFF1F] border-b border-[#FFFFFF1F] hover:bg-[#FFFFFF1F]'>
-                        <TableHead className="text-white font-medium text-[12px] rounded-tl-[12px] py-4 text-center">ID</TableHead>
-                        <TableHead className="text-white text-[12px]">Fiscal Invoice no.</TableHead>
-                        <TableHead className="text-white text-[12px]">Nett</TableHead>
-                        <TableHead className="text-white text-[12px]">Vatt</TableHead>
-                        <TableHead className="text-white text-[12px]">Total</TableHead>
-                        <TableHead className="text-white text-[12px]">Payment Method</TableHead>
-                        <TableHead className="text-white text-[12px]">Client Name</TableHead>
-                        <TableHead className="text-white text-[12px]">Address</TableHead>
-                        <TableHead className="text-white text-[12px]">Phone Number</TableHead>
-                        <TableHead className="text-white text-[12px]">Client VAT</TableHead>
-                        <TableHead className="text-white text-[12px]">Client TIN</TableHead>
-                        <TableHead className="text-white text-[12px]">Product</TableHead>
-                        <TableHead className="text-white text-[12px]">Subcategory</TableHead>
-                        <TableHead className="text-white text-[12px]">Main Category</TableHead>
-                        <TableHead className="text-white text-[12px]">Unit number</TableHead>
-                        <TableHead className="text-white text-[12px]">Unit Type</TableHead>
-                        <TableHead className="text-white text-[12px]">Date of travel</TableHead>
-                        <TableHead className="text-white text-[12px]">Date of payment</TableHead>
-                        <TableHead className="text-white text-[12px]">Client Type</TableHead>
-                        <TableHead className="text-white text-[12px]">Notes</TableHead>
-                        <TableHead className="text-white text-[12px]">Payment Status</TableHead>
-                        <TableHead className="text-white font-medium text-[12px] rounded-tr-[12px] py-4 "></TableHead>
-                    </TableRow>
-                </TableHeader>
+                <div className="flex items-center justify-between">
+                    <h1 className="text-[32px] font-semibold uppercase">Orders</h1>
+                    <div className="flex items-center gap-3">
+                        <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 ">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M8.16667 12.8333C7.0817 12.8333 6.53922 12.8333 6.09413 12.9526C4.88631 13.2762 3.94289 14.2196 3.61926 15.4275C3.5 15.8725 3.5 16.415 3.5 17.5V18.9C3.5 20.8602 3.5 21.8403 3.88148 22.589C4.21703 23.2475 4.75247 23.783 5.41103 24.1185C6.15972 24.5 7.13982 24.5 9.1 24.5H18.9C20.8602 24.5 21.8403 24.5 22.589 24.1185C23.2475 23.783 23.783 23.2475 24.1185 22.589C24.5 21.8403 24.5 20.8602 24.5 18.9V17.5C24.5 16.415 24.5 15.8725 24.3807 15.4275C24.0571 14.2196 23.1137 13.2762 21.9059 12.9526C21.4608 12.8333 20.9183 12.8333 19.8333 12.8333M18.6667 8.16667L14 3.5M14 3.5L9.33333 8.16667M14 3.5V17.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                            Export CSV </button>
+                        <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 ">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 9.33337V18.6667M9.33337 14H18.6667M25.6667 14C25.6667 20.4434 20.4434 25.6667 14 25.6667C7.55672 25.6667 2.33337 20.4434 2.33337 14C2.33337 7.55672 7.55672 2.33337 14 2.33337C20.4434 2.33337 25.6667 7.55672 25.6667 14Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                            Add New </button>
+                    </div>
+                </div>
 
-                <TableBody>
-                    {currentItems.map((item) => (
-                        <TableRow key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536]'>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.vat}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.total}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.paymentMethod}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientName}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.address}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.phone}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientVat}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientTIN}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.product}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.subCat}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.mainCat}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitNo}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitType}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.dateTravel}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.datePayment}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientType}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.Notes}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.PaymentStatus}</TableCell>
-                            <TableCell className='text-white text-[12px] font-medium py-4 text-center'>ss</TableCell>
+                <Table className='mt-8'>
+                    <TableHeader>
+                        <TableRow className='bg-[#FFFFFF1F] border-b border-[#FFFFFF1F] hover:bg-[#FFFFFF1F]'>
+                            <TableHead className="text-white font-medium text-[12px] rounded-tl-[12px] py-4 text-center">ID</TableHead>
+                            <TableHead className="text-white text-[12px]">Fiscal Invoice no.</TableHead>
+                            <TableHead className="text-white text-[12px]">Nett</TableHead>
+                            <TableHead className="text-white text-[12px]">Vatt</TableHead>
+                            <TableHead className="text-white text-[12px]">Total</TableHead>
+                            <TableHead className="text-white text-[12px]">Payment Method</TableHead>
+                            <TableHead className="text-white text-[12px]">Client Name</TableHead>
+                            <TableHead className="text-white text-[12px]">Address</TableHead>
+                            <TableHead className="text-white text-[12px]">Phone Number</TableHead>
+                            <TableHead className="text-white text-[12px]">Client VAT</TableHead>
+                            <TableHead className="text-white text-[12px]">Client TIN</TableHead>
+                            <TableHead className="text-white text-[12px]">Product</TableHead>
+                            <TableHead className="text-white text-[12px]">Subcategory</TableHead>
+                            <TableHead className="text-white text-[12px]">Main Category</TableHead>
+                            <TableHead className="text-white text-[12px]">Unit number</TableHead>
+                            <TableHead className="text-white text-[12px]">Unit Type</TableHead>
+                            <TableHead className="text-white text-[12px]">Date of travel</TableHead>
+                            <TableHead className="text-white text-[12px]">Date of payment</TableHead>
+                            <TableHead className="text-white text-[12px]">Client Type</TableHead>
+                            <TableHead className="text-white text-[12px]">Notes</TableHead>
+                            <TableHead className="text-white text-[12px]">Payment Status</TableHead>
+                            <TableHead className="text-white font-medium text-[12px] rounded-tr-[12px] py-4 "></TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
 
-            {/* ---------------- Pagination UI ---------------- */}
-            <div className="flex justify-center items-center gap-2 mt-6">
+                    <TableBody>
+                        {currentItems.map((item) => (
+                            <TableRow onClick={() => router.push(`/admin/order/${item.id}`)} key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536]'>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.vat}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.total}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.paymentMethod}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientName}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.address}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.phone}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientVat}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientTIN}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.product}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.subCat}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.mainCat}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitNo}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitType}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.dateTravel}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.datePayment}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientType}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.Notes}</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'> <div className="flex items-center justify-center">
+                                    <span className="bg-[#1C412B] w-[53px] h-[23px] rounded-lg flex items-center justify-center">{item.PaymentStatus}</span>
+                                    <span className="bg-[#514722] w-[53px] h-[23px] rounded-lg flex items-center justify-center">{item.PaymentStatus}</span>
+                                </div> </TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>ss</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
 
-                {/* Left Arrow */}
-                <button
-                    onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
-                    className="px-3 py-1 text-white bg-white/10 rounded hover:bg-white/20"
-                >
-                    ←
-                </button>
+                <div className="flex justify-center items-center gap-2 mt-6">
 
-                {/* Page Numbers */}
-                {getPageNumbers().map((page, idx) => (
+                    {/* Left Arrow */}
                     <button
-                        key={idx}
-                        onClick={() => page !== "..." && setCurrentPage(page)}
-                        disabled={page === "..."}
-                        className={`
+                        onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+                        className="px-3 py-1 text-white bg-white/10 rounded hover:bg-white/20"
+                    >
+                        ←
+                    </button>
+
+                    {/* Page Numbers */}
+                    {getPageNumbers().map((page, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => page !== "..." && setCurrentPage(page)}
+                            disabled={page === "..."}
+                            className={`
                             px-3 py-1 rounded text-sm
                             ${page === currentPage ? "bg-white text-black" : "bg-white/10 text-white"}
                             ${page === "..." ? "cursor-default" : "hover:bg-white/20"}
                         `}
-                    >
-                        {page}
-                    </button>
-                ))}
+                        >
+                            {page}
+                        </button>
+                    ))}
 
-                {/* Right Arrow */}
-                <button
-                    onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
-                    className="px-3 py-1 text-white bg-white/10 rounded hover:bg-white/20"
-                >
-                    →
-                </button>
+                    {/* Right Arrow */}
+                    <button
+                        onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+                        className="px-3 py-1 text-white bg-white/10 rounded hover:bg-white/20"
+                    >
+                        →
+                    </button>
+
+                </div>
 
             </div>
-
-        </div>
         </>
     )
 }

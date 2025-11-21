@@ -87,6 +87,9 @@
   --dark1:#181A1D;
   --dark2:#232528;
   --grey1:#373737;
+  --grey2:#E1E4ED52;
+  --grey3:#FFFFFF1F;
+  --grey4:#E0E6E9;
 }
 
 .dark {
@@ -157,11 +160,30 @@ body{
 }
 .form-control{
   height: 40px;
-  border-radius: 16px;
+  border-radius: 13px;
   border: 1px solid #373737;
   background-color: #232528;
   padding: 12px;
+  font-weight: 400;
+  font-size: 12px;
+  color: white;
 }
+
+.btn-primary{
+  border: 1px solid #FFFFFF3D;
+  box-shadow: 0px 0px 8px 0px #FFFFFF3D;
+  background-color: #FFFFFF29;
+  height: 48px;
+  border-radius: 12px;
+  cursor: pointer;
+
+
+  &:hover{
+  background-color: #e4e4e429;
+
+  }
+}
+
 .hovInnerShadow:hover{
     box-shadow: 0px 2px 8px 0px #FFFFFF66 inset;
 }

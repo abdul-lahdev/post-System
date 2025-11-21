@@ -7,7 +7,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import RevenueChart from "@/app/component/dashboard/revenue-chart"
 
 import {
     Table,
@@ -18,11 +17,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Separator } from "@/components/ui/separator"
 
-import {orderData} from "@/app/constants/data"   
+import { orderData } from "@/app/constants/data"
+import RevenueChart from "@/app/component/dashboard/revenue-chart"
+
 
 function Page() {
-    const [objData,setObjData]=useState(orderData)
+    const [objData, setObjData] = useState(orderData)
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = useState(undefined)
     const dashboardCards = [
@@ -67,6 +69,7 @@ function Page() {
                         </div>
 
                     </div>
+                    <Separator className='mt-3 bg-(--grey2)' />
                     <div className="mt-3">
                         <RevenueChart />
                     </div>
@@ -87,7 +90,13 @@ function Page() {
                     }
                 </div>
                 <div className="bg-(--dark1) border border-(--grey1) p-5 rounded-[20px] overflow-hidden">
-                    <Table className=''>
+                    <div>
+                        <h1 className="text-white font-medium text-[24px]">Recent Orders</h1>
+
+
+                    </div>
+                    <Separator className='mt-3 bg-(--grey2)' />
+                    <Table className='mt-5'>
                         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
                         <TableHeader>
                             <TableRow className='bg-[#FFFFFF1F] border-b border-[#FFFFFF1F] hover:bg-[#FFFFFF1F]'>
@@ -116,34 +125,34 @@ function Page() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                           {
-                            objData.map((item)=>(
-                                <TableRow key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536]'>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.vat}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.total}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.paymentMethod}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientName}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.address}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.phone}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientVat}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientTIN}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.product}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.subCat}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.mainCat}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitNo}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitType}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.dateTravel}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.datePayment}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientType}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.Notes}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.PaymentStatus}</TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>ss</TableCell>
-                            </TableRow>
-                            ))
-                           }
+                            {
+                                objData.map((item) => (
+                                    <TableRow key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536]'>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.vat}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.total}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.paymentMethod}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientName}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.address}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.phone}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientVat}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientTIN}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.product}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.subCat}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.mainCat}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitNo}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitType}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.dateTravel}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.datePayment}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientType}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.Notes}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.PaymentStatus}</TableCell>
+                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>ss</TableCell>
+                                    </TableRow>
+                                ))
+                            }
 
 
 
