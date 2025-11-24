@@ -77,7 +77,7 @@ function Page() {
                 <div className="h-full flex flex-col justify-between gap-4">
                     {
                         dashboardCards.map((item, index) =>
-                            <div key={index} className="bg-(--dark1) border border-(--grey1) p-5 rounded-[24px] h-[33%] flex items-center justify-between">
+                            <div key={index} className="bg-(--dark1) border border-(--grey1) p-5 rounded-3xl h-[33%] flex items-center justify-between">
                                 <div className="flex flex-col justify-between h-full">
                                     <h2 className="text-white text-2xl font-medium">{item.title}</h2>
                                     <h1 className="text-white text-[48px] font-medium">{item.value}</h1>

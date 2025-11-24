@@ -1,4 +1,7 @@
+'use client'
 import { Button } from "@/components/ui/button"
+import { useHotels } from "@/context/HotelContext"
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,7 +17,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+
+
 export default function Header() {
+
+    const { setHotel, hotelData, setStep } = useHotels();
+
     return (
         <div className="text-white bg-(--dark1) h-[98px] p-3 border-b border-(--grey1) flex justify-between items-center rounded-t-2xl flex-row">
             <div className="relative">
@@ -34,21 +42,23 @@ export default function Header() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="z-9999 bg-(--dark1) text-white border border-(--grey1)"
                             side="bottom"
-                            align="end">
-                            <DropdownMenuGroup>
-                                <DropdownMenuItem>
-                                    Rest Camp
+                            align="end" >
+                            <DropdownMenuGroup >
+
+                                {
+                                    hotelData.map((hotel, i) => (
+                                        <DropdownMenuItem onSelect={() => {
+                                            setHotel(hotel.name)
+
+                                            setStep("categories")
+                                        }
+                                        } key={i}>
+                                            {hotel.name}
+                                        </DropdownMenuItem>
+                                    ))
+                                }
 
 
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Bamba Tram
-
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    New Hotel
-
-                                </DropdownMenuItem>
 
                             </DropdownMenuGroup>
 
@@ -119,6 +129,6 @@ export default function Header() {
                     </DropdownMenu>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

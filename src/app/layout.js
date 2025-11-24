@@ -5,6 +5,8 @@ import "./globals.css";
 import LeftBar from "./component/layout/left-bar";
 import Header from "./component/layout/header";
 
+import { PostProvider,useHotels } from "@/context/HotelContext";
+
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],
@@ -28,7 +30,7 @@ export default function RootLayout({ children }) {
       >
 
 
-
+        <PostProvider>
 
         <div className="fixed left-0 top-0 mt-4 ms-4 h-[96%] bg-[#181A1D] w-[97px] rounded-[20px] text-white p-3">
           <LeftBar/>
@@ -37,6 +39,8 @@ export default function RootLayout({ children }) {
         <Header/>
         {children}
         </div>
+        </PostProvider>
+
      {/* <div className="flex">
 
  <div className="h-screen">
