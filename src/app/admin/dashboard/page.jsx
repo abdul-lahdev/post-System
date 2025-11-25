@@ -22,11 +22,16 @@ import { Separator } from "@/components/ui/separator"
 import { orderData } from "@/app/constants/data"
 import RevenueChart from "@/app/component/dashboard/revenue-chart"
 
+import ReceiptChart from "@/app/component/dashboard/receipt-chart"
+
 
 function Page() {
     const [objData, setObjData] = useState(orderData)
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = useState(undefined)
+
+    const [secopen, setSecOpen] = React.useState(false)
+    const [secdate, setSecDate] = useState(undefined)
     const dashboardCards = [
         {
             title: "Total Revenue", value: "$32,143", icon: <svg width="121" height="121" viewBox="0 0 121 121" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_f_2_9371)"> <circle cx="60.5" cy="60.5" r="28" fill="#00C853" fillOpacity="0.32" /> </g> <g filter="url(#filter1_ii_2_9371)"> <rect x="36.5" y="36.5" width="48" height="48" rx="24" fill="white" fillOpacity="0.02" /> <g clipPath="url(#clip0_2_9371)"> <path d="M60.5 48.8333C54.06 48.8333 48.8334 54.06 48.8334 60.5C48.8334 66.94 54.06 72.1667 60.5 72.1667C66.94 72.1667 72.1667 66.94 72.1667 60.5C72.1667 54.06 66.94 48.8333 60.5 48.8333ZM60.5 69.8333C55.355 69.8333 51.1667 65.645 51.1667 60.5C51.1667 55.355 55.355 51.1667 60.5 51.1667C65.645 51.1667 69.8334 55.355 69.8334 60.5C69.8334 65.645 65.645 69.8333 60.5 69.8333ZM60.8617 59.4967C58.7967 58.9717 58.1317 58.4 58.1317 57.5483C58.1317 56.5683 59.0534 55.88 60.5817 55.88C62.1917 55.88 62.7984 56.65 62.845 57.7933H64.84C64.7817 56.23 63.825 54.795 61.935 54.3283V52.3333H59.2167V54.305C57.455 54.6783 56.0434 55.8217 56.0434 57.5833C56.0434 59.6717 57.7817 60.7217 60.3134 61.3283C62.5884 61.865 63.0434 62.67 63.0434 63.51C63.0434 64.1283 62.5884 65.1317 60.5934 65.1317C58.7267 65.1317 57.9917 64.2917 57.8867 63.2183H55.88C55.9967 65.2017 57.4667 66.3217 59.2167 66.6833V68.6667H61.9467V66.7183C63.72 66.38 65.12 65.365 65.1317 63.4867C65.12 60.92 62.915 60.0333 60.8617 59.4967Z" fill="white" /> </g> </g> <defs> <filter id="filter0_f_2_9371" x="0" y="0" width="121" height="121" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" /> <feGaussianBlur stdDeviation="16.25" result="effect1_foregroundBlur_2_9371" /> </filter> <filter id="filter1_ii_2_9371" x="36.5" y="34.5" width="48" height="52" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="2" /> <feGaussianBlur stdDeviation="4" /> <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" /> <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0" /> <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_9371" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="-2" /> <feGaussianBlur stdDeviation="3" /> <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" /> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" /> <feBlend mode="normal" in2="effect1_innerShadow_2_9371" result="effect2_innerShadow_2_9371" /> </filter> <clipPath id="clip0_2_9371"> <rect width="28" height="28" fill="white" transform="translate(46.5 46.5)" /> </clipPath> </defs> </svg>
@@ -162,7 +167,39 @@ function Page() {
 
 
                 </div>
-                <div className="bg-(--dark1) border border-(--grey1) p-3 rounded-[20px]">Right</div>
+                <div className="bg-(--dark1) border border-(--grey1) p-5 rounded-[20px]">
+
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-white font-medium text-[24px]">Recent Orders</h1>
+                        <div className="flex flex-col gap-3">
+                            <Popover open={secopen} onOpenChange={setSecOpen}>
+                                <PopoverTrigger asChild>
+                                    <div className="w-10 h-10 rounded-xl bg-[#FFFFFF14] flex items-center justify-center cursor-pointer">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                        {/* {date ? date.toLocaleDateString() : "Select date"} */}
+                                    </div>
+
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        captionLayout="dropdown"
+                                        onSelect={(date) => {
+                                            setSecDate(date)
+                                            setSecOpen(false)
+                                        }}
+
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                    </div>
+                    <Separator className='mt-3 bg-(--grey2)' />
+                    <div>
+                        <ReceiptChart />
+                    </div>
+                </div>
             </div>
         </div>
     )

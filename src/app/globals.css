@@ -189,3 +189,52 @@ body{
 .hovInnerShadow:hover{
     box-shadow: 0px 2px 8px 0px #FFFFFF66 inset;
 }
+.nativeSelect{
+  .w-fit{
+    width: 100% !important;
+  }
+}
+
+.border-gradient {
+  border: 1px solid;
+  border-image-source:
+    linear-gradient(0deg, #373737, #373737),
+    linear-gradient(0deg, #ABBBC2, #ABBBC2);
+  border-image-slice: 1;
+}
+
+
+.table-responsive::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.table-responsive::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #555;
+}
+
+
+.overflow-x-auto::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #FFFFFF1F;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    width: 12px;
+    background-color: #FFFFFF1F;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #FFFFFF40;
+}

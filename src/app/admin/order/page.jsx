@@ -79,7 +79,7 @@ export default function Page() {
                     </div>
                 </div>
 
-                <Table className='mt-8'>
+                <Table className='mt-8 '>
                     <TableHeader>
                         <TableRow className='bg-[#FFFFFF1F] border-b border-[#FFFFFF1F] hover:bg-[#FFFFFF1F]'>
                             <TableHead className="text-white font-medium text-[12px] rounded-tl-[12px] py-4 text-center">ID</TableHead>

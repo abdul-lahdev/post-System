@@ -1,8 +1,27 @@
 "use client";
+import * as React from "react"
 import { useLayoutEffect, useState } from "react";
 import Image from 'next/image'
 import { useHotels } from "@/context/HotelContext";
 
+import { ChevronDownIcon } from "lucide-react"
+import toast, { Toaster } from 'react-hot-toast';
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+    NativeSelect,
+    NativeSelectOptGroup,
+    NativeSelectOption,
+} from "@/components/ui/native-select"
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+import { Separator } from "@/components/ui/separator"
 export default function Page() {
     // Step controller: categories → subcategories → products
 
@@ -13,6 +32,13 @@ export default function Page() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedSubCategory, setSelectedSubCategory] = useState(null);
     const [cart, setCart] = useState({});
+    const [open1, setOpen1] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
+
+    const [date1, setDate1] = useState(undefined);
+    const [date2, setDate2] = useState(undefined);
+
+
     console.log('cart', cart)
     const handleAdd = (item) => {
         setCart((prev) => {
@@ -153,9 +179,6 @@ export default function Page() {
 
     const currentHotel = hotelData.find((item) => item.name === hotel);
     console.log('currentHotel', currentHotel)
-    // -----------------------------
-    // STEP HANDLERS
-    // -----------------------------
 
     const handleCategoryClick = (cat) => {
         setSelectedCategory(cat);
@@ -176,12 +199,12 @@ export default function Page() {
             setStep("categories");
             setSelectedCategory(null);
         }
+        else if (step === 'checkout') {
+            setStep("products");
+        }
     };
-
-    // -----------------------------
-    // RENDER LOGIC (UI tum customise kar lena)
-    // -----------------------------
-
+    // const notify = () => toast('Here is your toast.');
+    const notify = () => toast.success('Form Submit successfully!');
     return (
         <div className="p-4 text-white">
             {/* --------------- CATEGORIES -------------- */}
@@ -268,7 +291,7 @@ export default function Page() {
                             <button onClick={goBack} className="inline-block">
                                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clipPath="url(#clip0_2_9771)"> <path d="M24.5 12.8333H7.96833L12.145 8.645L10.5 7L3.5 14L10.5 21L12.145 19.355L7.96833 15.1667H24.5V12.8333Z" fill="white" /> </g> <defs> <clipPath id="clip0_2_9771"> <rect width="28" height="28" fill="white" /> </clipPath> </defs> </svg>
                             </button>
-                            <h2>PRODUCTS
+                            <h2 className="text-white text-[28px] font-semibold">PRODUCTS
                                 {/* {selectedSubCategory} */}
                             </h2>
                         </div>
@@ -379,8 +402,11 @@ export default function Page() {
                                                     <td className="rounded-r-2xl">
                                                         {/* <p className="text-white font-medium text-[18px]">${item.price * item.quantity}</p> */}
                                                         <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
-                                                            $ <input type="number" value={item.price * item.quantity} className="w-[72px]" />
+                                                            $ <input type="number" value={item.price * item.quantity} onChange={(e) => console.log(e.target.value)} className="w-[72px]" />
                                                         </div>
+                                                        {/* <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
+                                                            $ <input type="number" value={item.price * item.quantity} className="w-[72px]" />
+                                                        </div> */}
 
                                                     </td>
                                                 </tr>
@@ -427,11 +453,234 @@ export default function Page() {
 
                                     </tfoot>
                                 </table>
-                                <button className="bg-[#FFFFFF2E] rounded-[12px] flex items-center justify-center h-11 shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-full hover:bg-[#e7e7e72e] cursor-pointer">Checkout</button>
+                                <button onClick={() => setStep('checkout')} className="bg-[#FFFFFF2E] rounded-[12px] flex items-center justify-center h-11 shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-full hover:bg-[#e7e7e72e] cursor-pointer">Checkout</button>
                             </div> : null}
 
                         </div>
 
+                    </div>
+                )
+            }
+
+
+            {/* Check Out  */}
+
+            {
+                step === "checkout" && (
+                    <div>
+                        <div className="flex items-center gap-3">
+                            <button onClick={goBack} className="inline-block cursor-pointer">
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clipPath="url(#clip0_2_9771)"> <path d="M24.5 12.8333H7.96833L12.145 8.645L10.5 7L3.5 14L10.5 21L12.145 19.355L7.96833 15.1667H24.5V12.8333Z" fill="white" /> </g> <defs> <clipPath id="clip0_2_9771"> <rect width="28" height="28" fill="white" /> </clipPath> </defs> </svg>
+                            </button>
+                            <h2 className="text-white text-[28px] font-semibold">Placing Order
+                                {/* {selectedSubCategory} */}
+                            </h2>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3 mt-4">
+                            <div className="bg-(--dark1) border border-(--grey1) rounded-2xl p-5">
+                                <h1 className="text-white font-medium text-2xl">ID #34562</h1>
+                                <div className="mt-4 grid grid-cols-2 gap-3">
+                                    <div className="col-span-2 w-full nativeSelect">
+                                        <NativeSelect style={{ width: '100%' }} className="w-full flex bg-[#333333B2] h-[49px] rounded-xl border-none mt-4">
+                                            <NativeSelectOption value="" className='bg-(--dark1) text-white border border-(--grey1)'>Order Details</NativeSelectOption>
+                                            <NativeSelectOption value="OrderNo" className='bg-(--dark1) text-white border border-(--grey1)'>Order No</NativeSelectOption>
+                                        </NativeSelect>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Name</label>
+                                        <input type="text" className="form-control block w-full mt-1" />
+
+                                    </div>
+                                    <div>
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Phone Number</label>
+                                        <input type="number" className="form-control block w-full mt-1" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Email</label>
+                                        <input type="email" className="form-control block w-full mt-1" />
+                                    </div>
+                                    <div className="w-full nativeSelect">
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Client Type</label>
+
+                                        <NativeSelect style={{ width: '100%' }} className="w-full flex bg-[#333333B2] h-10 mt-1 rounded-[13px] border border-(--grey1)">
+                                            <NativeSelectOption value="" className='bg-(--dark1) text-white border border-(--grey1)' selected disabled>Select Client Type</NativeSelectOption>
+                                            <NativeSelectOption value="Foreign" className='bg-(--dark1) text-white border border-(--grey1)'>Foreign</NativeSelectOption>
+                                            <NativeSelectOption value="Local" className='bg-(--dark1) text-white border border-(--grey1)'>Local</NativeSelectOption>
+                                        </NativeSelect>
+                                    </div>
+                                    <div className="col-span-2">
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Address</label>
+                                        <input type="text" className="form-control block w-full mt-1" />
+                                    </div>
+                                    <div >
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Client VAT</label>
+                                        <input type="number" className="form-control block w-full mt-1" />
+                                    </div>
+                                    <div >
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Client TIN</label>
+                                        <input type="number" className="form-control block w-full mt-1" />
+                                    </div>
+
+                                    <div>
+                                        <div className="flex flex-col gap-3 datePickerContainer">
+                                            <label htmlFor="" className="text-white text-[14px] font-medium ">Date of Travel</label>
+                                            <Popover open={open1} onOpenChange={setOpen1}>
+                                                <PopoverTrigger asChild className="w-full cursor-pointer bg-[#33333352] border border-(--grey1) rounded-xl h-10">
+                                                    <Button
+                                                        variant="outline"
+                                                        id="date"
+                                                        className="w-full justify-between font-normal"
+                                                    >
+                                                        {date1 ? date1.toLocaleDateString() : "Select date"}
+                                                        <ChevronDownIcon />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                                                    <Calendar
+                                                        mode="single"
+                                                        selected={date1}
+                                                        captionLayout="dropdown"
+                                                        onSelect={(d) => {
+                                                            setDate1(d)
+                                                            setOpen1(false)
+                                                        }}
+                                                    />
+                                                </PopoverContent>
+                                            </Popover>
+
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex flex-col gap-3 datePickerContainer">
+                                            <label htmlFor="" className="text-white text-[14px] font-medium ">Date of Travel</label>
+                                            <Popover open={open2} onOpenChange={setOpen2}>
+                                                <PopoverTrigger asChild className="w-full cursor-pointer bg-[#33333352] border border-(--grey1) rounded-xl h-10">
+                                                    <Button
+                                                        variant="outline"
+                                                        id="date"
+                                                        className="w-full justify-between font-normal"
+                                                    >
+                                                        {date2 ? date2.toLocaleDateString() : "Select date"}
+                                                        <ChevronDownIcon />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                                                    <Calendar
+                                                        mode="single"
+                                                        selected={date2}
+                                                        captionLayout="dropdown"
+                                                        onSelect={(d) => {
+                                                            setDate2(d)
+                                                            setOpen2(false)
+                                                        }}
+                                                    />
+                                                </PopoverContent>
+                                            </Popover>
+
+                                        </div>
+                                    </div>
+
+                                    <div className="col-span-2">
+                                        <label htmlFor="" className="text-white text-[14px] font-medium ">Client TIN</label>
+                                        <textarea name="" id="" className="border border-(--grey1)  bg-[#33333352] rounded-xl h-[70px] mt-1 resize-none p-2 block w-full"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-(--dark1) border border-(--grey1) rounded-2xl p-5">
+                                <h1 className="text-white font-medium text-2xl">Payment</h1>
+                                <Separator className='mt-3 bg-(--grey1)' />
+                                <h2 className="text-white text-[20px] font-semibold mt-4">Payment Method</h2>
+
+                                <Tabs defaultValue="creditCard" className="w-full mt-3">
+                                    <TabsList className="w-full h-[139px] flex gap-3 bg-transparent">
+
+                                        <TabsTrigger
+                                            value="creditCard"
+                                            className="bg-[#373737B2] cursor-pointer h-full text-white rounded-xl border border-(--grey1) data-[state=active]:border-[#ABBBC2] data-[state=active]:bg-(--grey1)"
+                                        >
+                                            <div className="flex flex-col items-center justify-center gap-3">
+                                                <svg className="w-11 h-11 shrink-0 size-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M40.3333 18.3332H3.66663M20.1666 25.6665H11M3.66663 15.0332L3.66663 28.9665C3.66663 31.02 3.66663 32.0468 4.06627 32.8311C4.4178 33.5211 4.97873 34.082 5.66866 34.4335C6.453 34.8332 7.47977 34.8332 9.53329 34.8332L34.4666 34.8332C36.5202 34.8332 37.5469 34.8332 38.3313 34.4335C39.0212 34.082 39.5821 33.5211 39.9337 32.8311C40.3333 32.0468 40.3333 31.02 40.3333 28.9665V15.0332C40.3333 12.9796 40.3333 11.9529 39.9337 11.1685C39.5821 10.4786 39.0212 9.91768 38.3313 9.56615C37.5469 9.16651 36.5202 9.16651 34.4666 9.16651L9.53329 9.1665C7.47977 9.1665 6.453 9.1665 5.66866 9.56615C4.97873 9.91768 4.41781 10.4786 4.06627 11.1685C3.66663 11.9529 3.66663 12.9796 3.66663 15.0332Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                                <p className="text-white text-[14px] font-medium">Credit Card</p>
+                                            </div>
+                                        </TabsTrigger>
+
+                                        <TabsTrigger
+                                            value="cash"
+                                            className="bg-[#373737B2] cursor-pointer h-full text-white rounded-xl border border-(--grey1) data-[state=active]:border-[#ABBBC2] data-[state=active]:bg-(--grey1)"
+                                        >
+                                            <div className="flex flex-col items-center justify-center gap-3">
+                                                <svg className="w-11 h-11 shrink-0 size-0" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M25.6666 16.4998H21.0833C19.5645 16.4998 18.3333 17.7311 18.3333 19.2498C18.3333 20.7686 19.5645 21.9998 21.0833 21.9998H22.9166C24.4354 21.9998 25.6666 23.2311 25.6666 24.7498C25.6666 26.2686 24.4354 27.4998 22.9166 27.4998H18.3333M22 14.6665V16.4998M22 27.4998V29.3332M33 21.9998H33.0183M11 21.9998H11.0183M3.66663 15.0332L3.66663 28.9665C3.66663 31.02 3.66663 32.0468 4.06627 32.8311C4.4178 33.5211 4.97873 34.082 5.66866 34.4335C6.453 34.8332 7.47977 34.8332 9.53329 34.8332L34.4666 34.8332C36.5202 34.8332 37.5469 34.8332 38.3313 34.4335C39.0212 34.082 39.5821 33.5211 39.9337 32.8311C40.3333 32.0468 40.3333 31.02 40.3333 28.9665V15.0332C40.3333 12.9796 40.3333 11.9529 39.9337 11.1685C39.5821 10.4786 39.0212 9.91768 38.3313 9.56615C37.5469 9.16651 36.5202 9.16651 34.4666 9.16651L9.53329 9.1665C7.47977 9.1665 6.453 9.1665 5.66866 9.56615C4.97873 9.91768 4.4178 10.4786 4.06627 11.1685C3.66663 11.9529 3.66663 12.9796 3.66663 15.0332ZM33.9166 21.9998C33.9166 22.5061 33.5062 22.9165 33 22.9165C32.4937 22.9165 32.0833 22.5061 32.0833 21.9998C32.0833 21.4936 32.4937 21.0832 33 21.0832C33.5062 21.0832 33.9166 21.4936 33.9166 21.9998ZM11.9166 21.9998C11.9166 22.5061 11.5062 22.9165 11 22.9165C10.4937 22.9165 10.0833 22.5061 10.0833 21.9998C10.0833 21.4936 10.4937 21.0832 11 21.0832C11.5062 21.0832 11.9166 21.4936 11.9166 21.9998Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                                <p className="text-white text-[14px] font-medium">Cash</p>
+                                            </div>
+                                        </TabsTrigger>
+
+                                    </TabsList>
+
+                                    <TabsContent value="creditCard">
+                                        <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-3">
+                                            <div className="col-span-2">
+                                                <label htmlFor="" className="text-white text-[14px] font-medium ">Cardholder Name</label>
+                                                <input type="text" className="form-control block w-full mt-1" />
+
+                                            </div>
+                                            <div className="col-span-2">
+                                                <label htmlFor="" className="text-white text-[14px] font-medium ">Card Number</label>
+                                                <input type="number" className="form-control block w-full mt-1" />
+
+                                            </div>
+                                            <div >
+                                                <label htmlFor="" className="text-white text-[14px] font-medium ">Expiration Date</label>
+                                                <input type="number" className="form-control block w-full mt-1" />
+
+                                            </div>
+                                            <div >
+                                                <label htmlFor="" className="text-white text-[14px] font-medium ">CVV</label>
+                                                <input
+                                                    type="password"
+                                                    maxLength={3}
+                                                    className="form-control block w-full mt-1"
+                                                />
+
+
+                                            </div>
+
+                                            <div className="bg-[#333333B2] mt-3 h-[49px] rounded-xl col-span-2 flex items-center justify-between px-4">
+                                                <span className="text-white font-medium text-[18px]">Total </span>
+                                                <span className="text-white font-medium text-[18px]"> $ 32,03</span>
+                                            </div>
+                                            <div className="col-span-2 mt-3">
+                                                <button
+                                                    className="btn btn-primary w-full"
+                                                    onClick={notify}
+                                                >
+                                                    Proceed
+                                                </button>
+                                                <Toaster />
+
+                                            </div>
+                                        </div>
+                                    </TabsContent>
+
+                                    <TabsContent value="cash">
+                                        <div className="bg-[#333333B2] mt-3 h-[49px] rounded-xl col-span-2 flex items-center justify-between px-4">
+                                            <span className="text-white font-medium text-[18px]">Total </span>
+                                            <span className="text-white font-medium text-[18px]"> $ 32,03</span>
+                                        </div>
+                                        <div className="col-span-2 mt-3">
+                                            <button
+                                                className="btn btn-primary w-full"
+                                                onClick={notify}
+                                            >
+                                                Proceed
+                                            </button>
+                                            <Toaster />
+
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
+
+                            </div>
+                        </div>
                     </div>
                 )
             }

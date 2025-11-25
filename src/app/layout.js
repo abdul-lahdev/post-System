@@ -1,21 +1,10 @@
 import "./globals.css";
 
+import Layout from "./component/layout/layout";
 
 
-import LeftBar from "./component/layout/left-bar";
-import Header from "./component/layout/header";
 
-import { PostProvider,useHotels } from "@/context/HotelContext";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata = {
   title: "Create Next App",
@@ -30,16 +19,9 @@ export default function RootLayout({ children }) {
       >
 
 
-        <PostProvider>
-
-        <div className="fixed left-0 top-0 mt-4 ms-4 h-[96%] bg-[#181A1D] w-[97px] rounded-[20px] text-white p-3">
-          <LeftBar/>
-        </div>
-        <div className="border border-[#373737] rounded-2xl mt-4 ml-32 mr-4 mb-4 pb-4">
-        <Header/>
-        {children}
-        </div>
-        </PostProvider>
+        <Layout>
+          {children}
+        </Layout>
 
      {/* <div className="flex">
 
@@ -57,7 +39,6 @@ export default function RootLayout({ children }) {
   </div>
 
 </div> */}
-
 
 
       </body>
