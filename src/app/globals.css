@@ -88,6 +88,9 @@
   --dark2:#232528;
   --dark3:#24282F;
   --dark4:#2B2E33;
+  --dark5:#1D1F22;
+  --dark6:#212224;
+  --dark7:#17191B;
   --grey1:#373737;
   --grey2:#E1E4ED52;
   --grey3:#FFFFFF1F;
@@ -162,7 +165,7 @@ body{
 }
 .form-control{
   height: 40px;
-  border-radius: 13px;
+  border-radius: 10px;
   border: 1px solid #373737;
   background-color: #232528;
   padding: 12px;
@@ -237,4 +240,63 @@ body{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #FFFFFF40;
+}
+
+
+
+/* Hide the default Dialog close button */
+button[data-dialog-close] {
+  display: none !important;
+}
+
+.multiReactSelectContainer{
+
+  .react-select__control--is-focused{
+        background-color: #212224 !important;
+  }
+
+  .css-13cymwt-control{
+    background-color: #212224 !important;
+    box-shadow: 0px 1px 2px 0px #1018280D !important;
+   border: 1px solid #373737 !important;
+   border-radius: 8px !important;
+  
+  }
+  .css-1p3m7a8-multiValue{
+    background-color:#FFFFFF1A;
+    border: 1px solid #FFFFFF3D;
+    border-radius:8px !important;
+    color:#FFFFFFB2;
+    .css-9jq23d{
+      color: #FFFFFFB2;
+    }
+
+    
+  }
+
+
+  .react-select__menu{
+    background-color: #202224 !important;
+  }
+  .react-select__option{
+    &:hover,&:focus-visible,&:focus{
+       background-color: #323436 !important;
+    }
+  }
+}
+.react-select__option {
+  background-color: transparent !important;
+}
+.react-select__option:hover {
+  background-color: #323436 !important;
+}
+
+/* remove focus highlight */
+.react-select__option:focus,
+.react-select__option:focus-visible {
+  background-color: transparent !important;
+  outline: none !important;
+}
+.react-select__option--is-selected {
+  background-color: #323436 !important; /* or transparent */
 }

@@ -22,7 +22,7 @@ export default function Page() {
             {/* Left Image Panel */}
             <div className="w-1/2 relative">
                 <Image
-                    src=''
+                    src='/images/login/loginImage.webp'
                     alt="POS login"
                     fill
                     className="object-cover"
