@@ -28,6 +28,7 @@ import { categories } from "@/app/constants/categories";
 export default function Page() {
 
     const [modalopen, setModalOpen] = useState(false);
+    const [subModalOpen, setSubModalOpen] = useState(false);
     const [currTab, setCurrTab] = useState('profile')
 
     const [openDropdown, setOpenDropdown] = useState(null);
@@ -50,7 +51,6 @@ export default function Page() {
     }, []);
 
 
-    console.log('categories', categories)
     const [objData, setObjData] = useState(categories)
 
 
@@ -379,7 +379,7 @@ export default function Page() {
 
                                         {/* 2nd button (anywhere else) */}
                                         <button
-                                            onClick={() => setModalOpen(true)}
+                                            onClick={() => setSubModalOpen(true)}
                                             className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 "
                                         >
                                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 9.33337V18.6667M9.33337 14H18.6667M25.6667 14C25.6667 20.4434 20.4434 25.6667 14 25.6667C7.55672 25.6667 2.33337 20.4434 2.33337 14C2.33337 7.55672 7.55672 2.33337 14 2.33337C20.4434 2.33337 25.6667 7.55672 25.6667 14Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
@@ -387,36 +387,24 @@ export default function Page() {
                                         </button>
 
 
-                                        <Dialog open={modalopen} onOpenChange={setModalOpen}>
+                                        <Dialog open={subModalOpen} onOpenChange={setSubModalOpen}>
                                             <DialogContent className='bg-(--dark7) shadow-[0_0_16.3px_0px_#FFFFFF7A] border-1 border-white'>
                                                 <DialogHeader className='text-white font-semibold text-[32px]'>
                                                     <DialogTitle className='border-b border-[#FFFFFF3D] pb-3'>
-                                                        ADD CATEGORY
+                                                        ADD SUBCATEGORY
                                                     </DialogTitle>
                                                     <DialogDescription>
                                                         <form action="">
                                                             <div className="mt-3">
                                                                 <label htmlFor=" " className='text-white font-medium text-[14px]'>
-                                                                    Category Name
+                                                                    Name
                                                                 </label>
                                                                 <input type="text" className="form-control w-full block mt-2" />
                                                             </div>
-                                                            <div className="mt-3 multiReactSelectContainer">
-                                                                <label htmlFor=" " className='text-white font-medium text-[14px]'>
-                                                                    Subcategory
-                                                                </label>
-                                                                <Select
-                                                                    closeMenuOnSelect={false}
-                                                                    defaultValue={[colourOptions[4], colourOptions[5]]}
-                                                                    isMulti
-                                                                    options={colourOptions}
-                                                                    className='mt-2 react-select-container'
-                                                                    classNamePrefix="react-select"
-                                                                />
-                                                            </div>
+
 
                                                             <div className="flex justify-end mt-4">
-                                                                <button type="submit" className='btn-primary px-6 text-white' >Add</button>
+                                                                <button type="submit" className='btn-primary px-8 text-white' >Save</button>
                                                             </div>
                                                         </form>
 
@@ -468,6 +456,7 @@ export default function Page() {
                                                                             onClick={() => {
                                                                                 console.log("Add New for ID:", item.id);
                                                                                 setOpenDropdown(null);
+                                                                                setSubModalOpen(true)
                                                                             }}
                                                                         >
                                                                             Add New

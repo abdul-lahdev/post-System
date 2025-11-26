@@ -34,9 +34,11 @@ export default function Page() {
     const [cart, setCart] = useState({});
     const [open1, setOpen1] = React.useState(false);
     const [open2, setOpen2] = React.useState(false);
+    const [open3, setOpen3] = React.useState(false);
 
     const [date1, setDate1] = useState(undefined);
     const [date2, setDate2] = useState(undefined);
+    const [date3, setDate3] = useState(undefined);
 
 
     console.log('cart', cart)
@@ -178,7 +180,7 @@ export default function Page() {
 
 
     const currentHotel = hotelData.find((item) => item.name === hotel);
-    console.log('currentHotel', currentHotel)
+
 
     const handleCategoryClick = (cat) => {
         setSelectedCategory(cat);
@@ -205,6 +207,23 @@ export default function Page() {
     };
     // const notify = () => toast('Here is your toast.');
     const notify = () => toast.success('Form Submit successfully!');
+
+
+    // Here
+    const handlePriceChange = (itemId, newPrice) => {
+        setCart(prevCart => ({
+            ...prevCart,
+            [itemId]: {
+                ...prevCart[itemId],
+                price: parseFloat(newPrice) / prevCart[itemId].quantity // update unit price if needed
+            }
+        }));
+    };
+
+
+
+
+
     return (
         <div className="p-4 text-white">
             {/* --------------- CATEGORIES -------------- */}
@@ -349,111 +368,127 @@ export default function Page() {
                             </div>
 
                             {Object.keys(cart).length ? <div className={`border border-(--grey1) p-5 rounded-[20px] mt-4 bg-[#181A1D] `}>
-                                <table className="border-separate border-spacing-y-3 w-full">
-                                    <thead>
-                                        <tr className="border-b border-(--grey1)">
-                                            <td className="text-white font-medium text-[20px]">Item</td>
-                                            <td className="text-white font-medium text-[20px] text-center">Qty</td>
-                                            <td className="text-white font-medium text-[20px]">Price</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            Object.values(cart).map((item, i) => (
-                                                <tr key={i} className="bg-[#33333399]">
-                                                    <td className="py-3 pl-4 rounded-l-2xl ">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="w-[72px] h-[45px] rounded-xl bg-[url(/images/order/item.webp)] bg-center bg-cover"></div>
-                                                            <div>
-                                                                <h2 className="text-white font-medium text-[16px]">
-                                                                    {item.title}  <span className="text-[#FFFFFFB2]">{item.unitType}</span>
-                                                                </h2>
-                                                                <p className="text-[#ABBBC2] text-[14px] font-normal">${item.price}</p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="flex items-center justify-center">
-                                                            <div className="bg-[#FFFFFF1A] w-[137px] h-11 rounded-2xl flex items-center justify-between px-3 mx-auto">
-                                                                {/* Minus */}
-                                                                <div
-                                                                    onClick={() => handleRemove(item)}
-                                                                    className="h-6 w-6 bg-white rounded-full text-black flex items-center justify-center text-[24px] cursor-pointer"
-                                                                >
-                                                                    -
-                                                                </div>
+                                <form action="
+                              "
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        console.log("Submitting cart:", cart); // you can send this to API
+                                        setStep('checkout'); // move to checkout step
+                                    }}
+                                >
 
-                                                                {/* Quantity */}
-                                                                <div className="text-white text-[20px]">
-                                                                    {item.quantity}
-                                                                </div>
-
-                                                                {/* Plus */}
-                                                                <div
-                                                                    onClick={() => handleAdd(item)}
-                                                                    className="h-6 w-6 bg-white rounded-full text-black flex items-center justify-center text-[24px] cursor-pointer"
-                                                                >
-                                                                    +
+                                    <table className="border-separate border-spacing-y-3 w-full">
+                                        <thead>
+                                            <tr className="border-b border-(--grey1)">
+                                                <td className="text-white font-medium text-[20px]">Item</td>
+                                                <td className="text-white font-medium text-[20px] text-center">Qty</td>
+                                                <td className="text-white font-medium text-[20px]">Price</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                Object.values(cart).map((item, i) => (
+                                                    <tr key={i} className="bg-[#33333399]">
+                                                        <td className="py-3 pl-4 rounded-l-2xl ">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="w-[72px] h-[45px] rounded-xl bg-[url(/images/order/item.webp)] bg-center bg-cover"></div>
+                                                                <div>
+                                                                    <h2 className="text-white font-medium text-[16px]">
+                                                                        {item.title}  <span className="text-[#FFFFFFB2]">{item.unitType}</span>
+                                                                    </h2>
+                                                                    <p className="text-[#ABBBC2] text-[14px] font-normal">${item.price}</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex items-center justify-center">
+                                                                <div className="bg-[#FFFFFF1A] w-[137px] h-11 rounded-2xl flex items-center justify-between px-3 mx-auto">
+                                                                    {/* Minus */}
+                                                                    <div
+                                                                        onClick={() => handleRemove(item)}
+                                                                        className="h-6 w-6 bg-white rounded-full text-black flex items-center justify-center text-[24px] cursor-pointer"
+                                                                    >
+                                                                        -
+                                                                    </div>
 
-                                                    </td>
-                                                    <td className="rounded-r-2xl">
-                                                        {/* <p className="text-white font-medium text-[18px]">${item.price * item.quantity}</p> */}
-                                                        <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
-                                                            $ <input type="number" value={item.price * item.quantity} onChange={(e) => console.log(e.target.value)} className="w-[72px]" />
-                                                        </div>
-                                                        {/* <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
+                                                                    {/* Quantity */}
+                                                                    <div className="text-white text-[20px]">
+                                                                        {item.quantity}
+                                                                    </div>
+
+                                                                    {/* Plus */}
+                                                                    <div
+                                                                        onClick={() => handleAdd(item)}
+                                                                        className="h-6 w-6 bg-white rounded-full text-black flex items-center justify-center text-[24px] cursor-pointer"
+                                                                    >
+                                                                        +
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td className="rounded-r-2xl">
+                                                            {/* <p className="text-white font-medium text-[18px]">${item.price * item.quantity}</p> */}
+                                                            <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
+                                                                $ <input
+                                                                    type="number"
+                                                                    value={(item.price * item.quantity).toFixed(2)}
+                                                                    onChange={(e) => handlePriceChange(item.id, e.target.value)}
+                                                                    className="w-[72px] bg-transparent border-none text-white"
+                                                                />
+
+                                                            </div>
+                                                            {/* <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
                                                             $ <input type="number" value={item.price * item.quantity} className="w-[72px]" />
                                                         </div> */}
 
-                                                    </td>
-                                                </tr>
-                                            ))
+                                                        </td>
+                                                    </tr>
+                                                ))
 
-                                        }
+                                            }
 
-                                    </tbody>
-                                    <tfoot>
-                                        <tr >
-                                            <td className="py-2 pl-4 rounded-l-2xl text-white">
-                                                Type
-                                            </td>
-                                            <td>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr >
+                                                <td className="py-2 pl-4 rounded-l-2xl text-white">
+                                                    Type
+                                                </td>
+                                                <td>
 
-                                            </td>
-                                            <td className="rounded-r-2xl text-white text-end">
-                                                <div className="bg-[#333333CC] h-8 rounded-xl flex items-center justify-center">Payment</div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td className="rounded-r-2xl text-white text-end">
+                                                    <div className="bg-[#333333CC] h-8 rounded-xl flex items-center justify-center">Payment</div>
+                                                </td>
+                                            </tr>
 
-                                        <tr >
-                                            <td className="py-2 pl-4 rounded-l-2xl text-white">
-                                                Sub total
-                                            </td>
-                                            <td>
+                                            <tr >
+                                                <td className="py-2 pl-4 rounded-l-2xl text-white">
+                                                    Sub total
+                                                </td>
+                                                <td>
 
-                                            </td>
-                                            <td className="py-2 pl-4 rounded-l-2xl text-white text-end">
-                                                $ 21,03
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td className="py-2 pl-4 rounded-l-2xl text-white">
-                                                VAT
-                                            </td>
-                                            <td>
+                                                </td>
+                                                <td className="py-2 pl-4 rounded-l-2xl text-white text-end">
+                                                    $ 21,03
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td className="py-2 pl-4 rounded-l-2xl text-white">
+                                                    VAT
+                                                </td>
+                                                <td>
 
-                                            </td>
-                                            <td className="py-2 pl-4 rounded-l-2xl text-white text-end">
-                                                12%
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td className="py-2 pl-4 rounded-l-2xl text-white text-end">
+                                                    12%
+                                                </td>
+                                            </tr>
 
-                                    </tfoot>
-                                </table>
-                                <button onClick={() => setStep('checkout')} className="bg-[#FFFFFF2E] rounded-[12px] flex items-center justify-center h-11 shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-full hover:bg-[#e7e7e72e] cursor-pointer">Checkout</button>
+                                        </tfoot>
+                                    </table>
+                                    <button onClick={() => setStep('checkout')} type="submit" className="bg-[#FFFFFF2E] rounded-[12px] flex items-center justify-center h-11 shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-full hover:bg-[#e7e7e72e] cursor-pointer">Checkout</button>
+                                </form>
                             </div> : null}
 
                         </div>
@@ -630,7 +665,29 @@ export default function Page() {
                                             </div>
                                             <div >
                                                 <label htmlFor="" className="text-white text-[14px] font-medium ">Expiration Date</label>
-                                                <input type="number" className="form-control block w-full mt-1" />
+                                                <Popover open={open3} onOpenChange={setOpen3} >
+                                                    <PopoverTrigger asChild className="w-full cursor-pointer bg-[#232528] border border-(--grey1) rounded-[10px] h-10">
+                                                        <Button
+                                                            variant="outline"
+                                                            id="date"
+                                                            className="w-full justify-between font-normal mt-1"
+                                                        >
+                                                            {date3 ? date3.toLocaleDateString() : "Select date"}
+                                                            <ChevronDownIcon />
+                                                        </Button>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                                                        <Calendar
+                                                            mode="single"
+                                                            selected={date3}
+                                                            captionLayout="dropdown"
+                                                            onSelect={(d) => {
+                                                                setDate3(d)
+                                                                setOpen3(false)
+                                                            }}
+                                                        />
+                                                    </PopoverContent>
+                                                </Popover>
 
                                             </div>
                                             <div >

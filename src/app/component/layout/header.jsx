@@ -73,28 +73,36 @@ export default function Header() {
                                 <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M11.489 19.75H7.48903M15.489 6.75C15.489 5.1587 14.8569 3.63258 13.7317 2.50736C12.6065 1.38214 11.0803 0.75 9.48903 0.75C7.89773 0.75 6.37161 1.38214 5.24639 2.50736C4.12117 3.63258 3.48903 5.1587 3.48903 6.75C3.48903 9.84018 2.7095 11.956 1.8387 13.3554C1.10416 14.5359 0.736891 15.1261 0.750357 15.2908C0.765269 15.4731 0.803892 15.5426 0.950808 15.6516C1.08349 15.75 1.68162 15.75 2.87789 15.75H16.1002C17.2964 15.75 17.8946 15.75 18.0273 15.6516C18.1742 15.5426 18.2128 15.4731 18.2277 15.2908C18.2412 15.1261 17.8739 14.5359 17.1394 13.3554C16.2686 11.956 15.489 9.84019 15.489 6.75Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="z-9999 bg-(--dark1) text-white border border-(--grey1)"
+                        <DropdownMenuContent
+                            className="z-50 w-80 bg-(--dark1) text-white border border-(--grey1) rounded-lg shadow-lg p-2 overflow-hidden"
                             side="bottom"
-                            align="end">
-                            <DropdownMenuGroup>
-                                <DropdownMenuItem>
-                                    Profile
-                                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                            align="end"
+                        >
+                            <div className="flex justify-between items-center px-3 py-2 border-b border-(--grey2)">
+                                <span className="font-semibold text-sm">Notifications</span>
+                                <button className="text-(--grey2) hover:text-white text-sm cursor-pointer">Clear all</button>
+                            </div>
+
+                            <div className="max-h-64 overflow-y-auto py-2">
+                                <DropdownMenuItem className="flex flex-col items-start gap-1 py-3 px-3 hover:bg-[#ffffff10] rounded-lg">
+                                    <span className="text-sm font-medium">New comment on your post</span>
+                                    <span className="text-xs text-(--grey2)">2 min ago</span>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Billing
-                                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+
+                                <DropdownMenuItem className="flex flex-col items-start gap-1 py-3 px-3 hover:bg-[#ffffff10] rounded-lg">
+                                    <span className="text-sm font-medium">Your order has been shipped</span>
+                                    <span className="text-xs text-(--grey2)">1 hr ago</span>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Settings
-                                    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+
+                                <DropdownMenuItem className="flex flex-col items-start gap-1 py-3 px-3 hover:bg-[#ffffff10] rounded-lg">
+                                    <span className="text-sm font-medium">New friend request</span>
+                                    <span className="text-xs text-(--grey2)">3 hr ago</span>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Keyboard shortcuts
-                                </DropdownMenuItem>
-                            </DropdownMenuGroup>
+                            </div>
+
 
                         </DropdownMenuContent>
+
                     </DropdownMenu>
                 </div>
                 <div>

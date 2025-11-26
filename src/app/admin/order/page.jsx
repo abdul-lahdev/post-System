@@ -2,13 +2,6 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import * as React from "react"
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import RevenueChart from "@/app/component/dashboard/revenue-chart"
 
 import {
     Table,
@@ -22,6 +15,22 @@ import {
 import { orderData } from "@/app/constants/data"
 
 export default function Page() {
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+
+    const dropdownRef = React.useRef(null);
+
+    // Close dropdown when clicking outside
+    React.useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpenDropdown(null);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     const router = useRouter();
     const [objData, setObjData] = useState(orderData)
 
@@ -109,7 +118,7 @@ export default function Page() {
 
                     <TableBody>
                         {currentItems.map((item) => (
-                            <TableRow onClick={() => router.push(`/admin/order/${item.id}`)} key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536]'>
+                            <TableRow onClick={() => router.push(`/admin/order/${item.id}`)} key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536] cursor-pointer'>
                                 <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
                                 <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
                                 <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
@@ -134,7 +143,60 @@ export default function Page() {
                                     <span className="bg-[#1C412B] w-[53px] h-[23px] rounded-lg flex items-center justify-center">{item.PaymentStatus}</span>
                                     <span className="bg-[#514722] w-[53px] h-[23px] rounded-lg flex items-center justify-center">{item.PaymentStatus}</span>
                                 </div> </TableCell>
-                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>ss</TableCell>
+                                <TableCell className='text-white text-[12px] font-medium py-4 text-center'>
+                                    <div className="relative">
+                                        <button
+                                            className="cursor-pointer px-2 py-1"
+                                            onClick={(e) => {
+                                                e.stopPropagation(); // Prevent row click
+                                                setOpenDropdown(openDropdown === item.id ? null : item.id);
+                                            }}
+                                        >
+                                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 15.167C14.6444 15.167 15.1667 14.6447 15.1667 14.0003C15.1667 13.356 14.6444 12.8337 14 12.8337C13.3557 12.8337 12.8334 13.356 12.8334 14.0003C12.8334 14.6447 13.3557 15.167 14 15.167Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> <path d="M14 7.00033C14.6444 7.00033 15.1667 6.47799 15.1667 5.83366C15.1667 5.18933 14.6444 4.66699 14 4.66699C13.3557 4.66699 12.8334 5.18933 12.8334 5.83366C12.8334 6.47799 13.3557 7.00033 14 7.00033Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> <path d="M14 23.3337C14.6444 23.3337 15.1667 22.8113 15.1667 22.167C15.1667 21.5227 14.6444 21.0003 14 21.0003C13.3557 21.0003 12.8334 21.5227 12.8334 22.167C12.8334 22.8113 13.3557 23.3337 14 23.3337Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                        </button>
+
+                                        {openDropdown === item.id && (
+                                            <div
+
+                                                ref={dropdownRef}
+                                                className="absolute right-0 mt-2 w-40 bg-[#1E1E1E] border border-gray-700 rounded-md shadow-lg z-50 flex flex-col items-center"
+                                            >
+                                                <button
+                                                    className="w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+                                                    onClick={(e) => {
+                                                        console.log("Add New for ID:", item.id);
+                                                        setOpenDropdown(null);
+                                                        setSubModalOpen(true)
+                                                    }}
+                                                >
+                                                    View
+                                                </button>
+
+                                                <button
+                                                    className="w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+                                                    onClick={(e) => {
+                                                        console.log("Edit:", item.id);
+                                                        setOpenDropdown(null);
+                                                        e.stopPropagation();
+                                                    }}
+                                                >
+                                                    Add New
+                                                </button>
+
+                                                <button
+                                                    className="w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+                                                    onClick={(e) => {
+                                                        console.log("Delete:", item.id);
+                                                        setOpenDropdown(null);
+                                                        e.stopPropagation();
+                                                    }}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,5 +1,7 @@
 'use client'
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation"
+
 import { useState } from "react"
 import * as React from "react"
 import { Calendar } from "@/components/ui/calendar"
@@ -8,6 +10,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { orderData } from "@/app/constants/data"
 
 import {
     Table,
@@ -20,7 +23,6 @@ import {
 } from "@/components/ui/table"
 import { Separator } from "@/components/ui/separator"
 
-import { orderData } from "@/app/constants/data"
 const RevenueChart = dynamic(
     () => import('@/app/component/dashboard/revenue-chart'),
     { ssr: false } // only render on client
@@ -33,6 +35,9 @@ const ReceiptChart = dynamic(
 
 
 function Page() {
+
+
+
     const [objData, setObjData] = useState(orderData)
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = useState(undefined)
@@ -46,6 +51,64 @@ function Page() {
         { title: "Total Receipts", value: "2,321", icon: <svg width="121" height="121" viewBox="0 0 121 121" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_f_2_9379)"> <circle cx="60.5" cy="60.5" r="28" fill="#007BFF" fillOpacity="0.32" /> </g> <g filter="url(#filter1_ii_2_9379)"> <rect x="36.5" y="36.5" width="48" height="48" rx="24" fill="white" fillOpacity="0.02" /> <g opacity="0.8" clipPath="url(#clip0_2_9379)" filter="url(#filter2_d_2_9379)"> <path d="M69.25 50.5833L67.5 48.8333L65.75 50.5833L64 48.8333L62.25 50.5833L60.5 48.8333L58.75 50.5833L57 48.8333L55.25 50.5833L53.5 48.8333V65.1667H50V68.6667C50 70.6033 51.5633 72.1667 53.5 72.1667H67.5C69.4367 72.1667 71 70.6033 71 68.6667V48.8333L69.25 50.5833ZM64 69.8333H53.5C52.8583 69.8333 52.3333 69.3083 52.3333 68.6667V67.5H64V69.8333ZM68.6667 68.6667C68.6667 69.3083 68.1417 69.8333 67.5 69.8333C66.8583 69.8333 66.3333 69.3083 66.3333 68.6667V65.1667H55.8333V52.3333H68.6667V68.6667Z" fill="white" /> <path d="M64 54.6667H57V57H64V54.6667Z" fill="white" /> <path d="M67.5 54.6667H65.1666V57H67.5V54.6667Z" fill="white" /> <path d="M64 58.1667H57V60.5H64V58.1667Z" fill="white" /> <path d="M67.5 58.1667H65.1666V60.5H67.5V58.1667Z" fill="white" /> </g> </g> <defs> <filter id="filter0_f_2_9379" x="0" y="0" width="121" height="121" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" /> <feGaussianBlur stdDeviation="16.25" result="effect1_foregroundBlur_2_9379" /> </filter> <filter id="filter1_ii_2_9379" x="36.5" y="34.5" width="48" height="52" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="2" /> <feGaussianBlur stdDeviation="4" /> <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" /> <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0" /> <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_9379" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="-2" /> <feGaussianBlur stdDeviation="3" /> <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" /> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" /> <feBlend mode="normal" in2="effect1_innerShadow_2_9379" result="effect2_innerShadow_2_9379" /> </filter> <filter id="filter2_d_2_9379" x="42.5" y="46.5" width="36" height="36" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="4" /> <feGaussianBlur stdDeviation="2" /> <feComposite in2="hardAlpha" operator="out" /> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0.482353 0 0 0 0 1 0 0 0 0.01 0" /> <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_9379" /> <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_9379" result="shape" /> </filter> <clipPath id="clip0_2_9379"> <rect width="28" height="28" fill="white" transform="translate(46.5 46.5)" /> </clipPath> </defs> </svg> },
         { title: "Total Orders", value: "2,322", icon: <svg width="121" height="121" viewBox="0 0 121 121" fill="none" xmlns="http://www.w3.org/2000/svg"> <g filter="url(#filter0_f_2_9387)"> <circle cx="60.5" cy="60.5" r="28" fill="#FF9100" fillOpacity="0.32" /> </g> <g filter="url(#filter1_ii_2_9387)"> <rect x="36.5" y="36.5" width="48" height="48" rx="24" fill="white" fillOpacity="0.02" /> <path d="M65.1666 51.1666C66.2516 51.1666 66.7941 51.1666 67.2392 51.2859C68.447 51.6095 69.3904 52.553 69.714 53.7608C69.8333 54.2059 69.8333 54.7483 69.8333 55.8333V66.5666C69.8333 68.5268 69.8333 69.5069 69.4518 70.2556C69.1163 70.9142 68.5808 71.4496 67.9223 71.7852C67.1736 72.1666 66.1935 72.1666 64.2333 72.1666H56.7666C54.8064 72.1666 53.8264 72.1666 53.0777 71.7852C52.4191 71.4496 51.8837 70.9142 51.5481 70.2556C51.1666 69.5069 51.1666 68.5268 51.1666 66.5666V55.8333C51.1666 54.7483 51.1666 54.2059 51.2859 53.7608C51.6095 52.553 52.5529 51.6095 53.7608 51.2859C54.2058 51.1666 54.7483 51.1666 55.8333 51.1666M57.7 53.5H63.3C63.9534 53.5 64.2801 53.5 64.5296 53.3728C64.7491 53.261 64.9276 53.0825 65.0395 52.863C65.1666 52.6134 65.1666 52.2867 65.1666 51.6333V50.7C65.1666 50.0466 65.1666 49.7199 65.0395 49.4703C64.9276 49.2508 64.7491 49.0723 64.5296 48.9605C64.2801 48.8333 63.9534 48.8333 63.3 48.8333H57.7C57.0466 48.8333 56.7199 48.8333 56.4703 48.9605C56.2508 49.0723 56.0723 49.2508 55.9605 49.4703C55.8333 49.7199 55.8333 50.0466 55.8333 50.7V51.6333C55.8333 52.2867 55.8333 52.6134 55.9605 52.863C56.0723 53.0825 56.2508 53.261 56.4703 53.3728C56.7199 53.5 57.0466 53.5 57.7 53.5Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </g> <defs> <filter id="filter0_f_2_9387" x="0" y="0" width="121" height="121" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" /> <feGaussianBlur stdDeviation="16.25" result="effect1_foregroundBlur_2_9387" /> </filter> <filter id="filter1_ii_2_9387" x="36.5" y="34.5" width="48" height="52" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB"> <feFlood floodOpacity="0" result="BackgroundImageFix" /> <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="2" /> <feGaussianBlur stdDeviation="4" /> <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" /> <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0" /> <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_9387" /> <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" /> <feOffset dy="-2" /> <feGaussianBlur stdDeviation="3" /> <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" /> <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" /> <feBlend mode="normal" in2="effect1_innerShadow_2_9387" result="effect2_innerShadow_2_9387" /> </filter> </defs> </svg> },
     ]
+
+
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+
+    const dropdownRef = React.useRef(null);
+
+    // Close dropdown when clicking outside
+    React.useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpenDropdown(null);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const router = useRouter();
+
+    // ---------------- Pagination State ----------------
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    const totalPages = Math.ceil(objData.length / itemsPerPage);
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    const currentItems = objData.slice(indexOfFirstItem, indexOfLastItem);
+
+    // ------------ Pagination page number logic with dots ------------
+    const getPageNumbers = () => {
+        const pages = [];
+
+        if (totalPages <= 7) {
+            for (let i = 1; i <= totalPages; i++) pages.push(i);
+        } else {
+            pages.push(1);
+            pages.push(2);
+
+            if (currentPage > 4) pages.push("...");
+
+            const start = Math.max(3, currentPage - 1);
+            const end = Math.min(totalPages - 2, currentPage + 1);
+
+            for (let i = start; i <= end; i++) pages.push(i);
+
+            if (currentPage < totalPages - 3) pages.push("...");
+
+            pages.push(totalPages - 1);
+            pages.push(totalPages);
+        }
+
+        return pages;
+    };
+
+
 
     return (
         <div className="text-white px-5 pt-8">
@@ -107,68 +170,155 @@ function Page() {
 
                     </div>
                     <Separator className='mt-3 bg-(--grey2)' />
-                    <Table className='mt-5'>
-                        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+                    <Table className='mt-8 '>
                         <TableHeader>
                             <TableRow className='bg-[#FFFFFF1F] border-b border-[#FFFFFF1F] hover:bg-[#FFFFFF1F]'>
                                 <TableHead className="text-white font-medium text-[12px] rounded-tl-[12px] py-4 text-center">ID</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Fiscal Invoice no.</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Nett</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Vatt</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Total</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Payment Method</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Client Name</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Address</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Phone Number</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Client VAT</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Client TIN</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Product </TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Subcategory</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Main Category</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Unit number</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Unit Type</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Date of travel</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Date of payment</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Client Type</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Notes</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] py-4 text-center">Payment Status</TableHead>
-                                <TableHead className="text-white font-medium text-[12px] rounded-tr-[12px] py-4"></TableHead>
+                                <TableHead className="text-white text-[12px]">Fiscal Invoice no.</TableHead>
+                                <TableHead className="text-white text-[12px]">Nett</TableHead>
+                                <TableHead className="text-white text-[12px]">Vatt</TableHead>
+                                <TableHead className="text-white text-[12px]">Total</TableHead>
+                                <TableHead className="text-white text-[12px]">Payment Method</TableHead>
+                                <TableHead className="text-white text-[12px]">Client Name</TableHead>
+                                <TableHead className="text-white text-[12px]">Address</TableHead>
+                                <TableHead className="text-white text-[12px]">Phone Number</TableHead>
+                                <TableHead className="text-white text-[12px]">Client VAT</TableHead>
+                                <TableHead className="text-white text-[12px]">Client TIN</TableHead>
+                                <TableHead className="text-white text-[12px]">Product</TableHead>
+                                <TableHead className="text-white text-[12px]">Subcategory</TableHead>
+                                <TableHead className="text-white text-[12px]">Main Category</TableHead>
+                                <TableHead className="text-white text-[12px]">Unit number</TableHead>
+                                <TableHead className="text-white text-[12px]">Unit Type</TableHead>
+                                <TableHead className="text-white text-[12px]">Date of travel</TableHead>
+                                <TableHead className="text-white text-[12px]">Date of payment</TableHead>
+                                <TableHead className="text-white text-[12px]">Client Type</TableHead>
+                                <TableHead className="text-white text-[12px]">Notes</TableHead>
+                                <TableHead className="text-white text-[12px]">Payment Status</TableHead>
+                                <TableHead className="text-white font-medium text-[12px] rounded-tr-[12px] py-4 "></TableHead>
                             </TableRow>
                         </TableHeader>
+
                         <TableBody>
-                            {
-                                objData.map((item) => (
-                                    <TableRow key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536]'>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.vat}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.total}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.paymentMethod}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientName}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.address}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.phone}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientVat}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientTIN}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.product}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.subCat}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.mainCat}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitNo}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitType}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.dateTravel}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.datePayment}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientType}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.Notes}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.PaymentStatus}</TableCell>
-                                        <TableCell className='text-white text-[12px] font-medium py-4 text-center'>ss</TableCell>
-                                    </TableRow>
-                                ))
-                            }
+                            {currentItems.map((item) => (
+                                <TableRow onClick={() => router.push(`/admin/order/${item.id}`)} key={item.id} className='bg-[#FFFFFF0F] border-t border-[#FFFFFF1F] hover:bg-[#f5f5f536] cursor-pointer'>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.id}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.fiscVoice}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.net}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.vat}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.total}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.paymentMethod}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientName}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.address}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.phone}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientVat}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientTIN}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.product}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.subCat}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.mainCat}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitNo}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.unitType}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.dateTravel}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.datePayment}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.clientType}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>{item.Notes}</TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'> <div className="flex items-center justify-center">
+                                        <span className="bg-[#1C412B] w-[53px] h-[23px] rounded-lg flex items-center justify-center">{item.PaymentStatus}</span>
+                                        <span className="bg-[#514722] w-[53px] h-[23px] rounded-lg flex items-center justify-center">{item.PaymentStatus}</span>
+                                    </div> </TableCell>
+                                    <TableCell className='text-white text-[12px] font-medium py-4 text-center'>
+                                        <div className="relative">
+                                            <button
+                                                className="cursor-pointer px-2 py-1"
+                                                onClick={(e) => {
+                                                    e.stopPropagation(); // Prevent row click
+                                                    setOpenDropdown(openDropdown === item.id ? null : item.id);
+                                                }}
+                                            >
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 15.167C14.6444 15.167 15.1667 14.6447 15.1667 14.0003C15.1667 13.356 14.6444 12.8337 14 12.8337C13.3557 12.8337 12.8334 13.356 12.8334 14.0003C12.8334 14.6447 13.3557 15.167 14 15.167Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> <path d="M14 7.00033C14.6444 7.00033 15.1667 6.47799 15.1667 5.83366C15.1667 5.18933 14.6444 4.66699 14 4.66699C13.3557 4.66699 12.8334 5.18933 12.8334 5.83366C12.8334 6.47799 13.3557 7.00033 14 7.00033Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> <path d="M14 23.3337C14.6444 23.3337 15.1667 22.8113 15.1667 22.167C15.1667 21.5227 14.6444 21.0003 14 21.0003C13.3557 21.0003 12.8334 21.5227 12.8334 22.167C12.8334 22.8113 13.3557 23.3337 14 23.3337Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                            </button>
 
+                                            {openDropdown === item.id && (
+                                                <div
 
+                                                    ref={dropdownRef}
+                                                    className="absolute right-0 mt-2 w-40 bg-[#1E1E1E] border border-gray-700 rounded-md shadow-lg z-50 flex flex-col items-center"
+                                                >
+                                                    <button
+                                                        className="w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+                                                        onClick={(e) => {
+                                                            console.log("Add New for ID:", item.id);
+                                                            setOpenDropdown(null);
+                                                            setSubModalOpen(true)
+                                                        }}
+                                                    >
+                                                        View
+                                                    </button>
 
+                                                    <button
+                                                        className="w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+                                                        onClick={(e) => {
+                                                            console.log("Edit:", item.id);
+                                                            setOpenDropdown(null);
+                                                            e.stopPropagation();
+                                                        }}
+                                                    >
+                                                        Add New
+                                                    </button>
+
+                                                    <button
+                                                        className="w-full text-left px-4 py-2 text-white hover:bg-gray-700"
+                                                        onClick={(e) => {
+                                                            console.log("Delete:", item.id);
+                                                            setOpenDropdown(null);
+                                                            e.stopPropagation();
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
+
+                    <div className="flex justify-center items-center gap-2 mt-6">
+
+                        {/* Left Arrow */}
+                        <button
+                            onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+                            className="px-3 py-1 text-white bg-white/10 rounded hover:bg-white/20"
+                        >
+                            ←
+                        </button>
+
+                        {/* Page Numbers */}
+                        {getPageNumbers().map((page, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => page !== "..." && setCurrentPage(page)}
+                                disabled={page === "..."}
+                                className={`
+                                              px-3 py-1 rounded text-sm
+                                              ${page === currentPage ? "bg-white text-black" : "bg-white/10 text-white"}
+                                              ${page === "..." ? "cursor-default" : "hover:bg-white/20"}
+                                          `}
+                            >
+                                {page}
+                            </button>
+                        ))}
+
+                        {/* Right Arrow */}
+                        <button
+                            onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+                            className="px-3 py-1 text-white bg-white/10 rounded hover:bg-white/20"
+                        >
+                            →
+                        </button>
+
+                    </div>
 
 
 
