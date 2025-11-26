@@ -1,8 +1,11 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
 
 
+import { usePathname } from 'next/navigation'
 
 import {
     Tooltip,
@@ -43,6 +46,10 @@ export default function LeftBar() {
         },
     ]
 
+
+    const pathname = usePathname()
+    console.log('pathname', pathname)
+
     return (
         <div className="flex flex-col justify-between h-full items-center">
             <div>
@@ -53,7 +60,7 @@ export default function LeftBar() {
                         <li key={index}>
                             <Tooltip placement="right">
                                 <TooltipTrigger asChild>
-                                    <Link href={item.href} className='hover:shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-[58px] h-[52px] hover:bg-[#FFFFFF29] flex justify-center items-center rounded-[15px] mb-4'>
+                                    <Link href={item.href} className={`hover:shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-[58px] h-[52px] hover:bg-[#FFFFFF29] flex justify-center items-center rounded-[15px] mb-4 ${pathname === item.href ? 'bg-[#FFFFFF29] shadow-[inset_0px_2px_8px_0px_#FFFFFF66]' : ''}`}>
                                         {item.icon}
                                     </Link>
 
