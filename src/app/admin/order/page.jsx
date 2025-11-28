@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import * as React from "react"
+import Link from "next/link"
 
 import {
     Table,
@@ -82,9 +83,12 @@ export default function Page() {
                         <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 ">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M8.16667 12.8333C7.0817 12.8333 6.53922 12.8333 6.09413 12.9526C4.88631 13.2762 3.94289 14.2196 3.61926 15.4275C3.5 15.8725 3.5 16.415 3.5 17.5V18.9C3.5 20.8602 3.5 21.8403 3.88148 22.589C4.21703 23.2475 4.75247 23.783 5.41103 24.1185C6.15972 24.5 7.13982 24.5 9.1 24.5H18.9C20.8602 24.5 21.8403 24.5 22.589 24.1185C23.2475 23.783 23.783 23.2475 24.1185 22.589C24.5 21.8403 24.5 20.8602 24.5 18.9V17.5C24.5 16.415 24.5 15.8725 24.3807 15.4275C24.0571 14.2196 23.1137 13.2762 21.9059 12.9526C21.4608 12.8333 20.9183 12.8333 19.8333 12.8333M18.6667 8.16667L14 3.5M14 3.5L9.33333 8.16667M14 3.5V17.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
                             Export CSV </button>
-                        <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 ">
-                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 9.33337V18.6667M9.33337 14H18.6667M25.6667 14C25.6667 20.4434 20.4434 25.6667 14 25.6667C7.55672 25.6667 2.33337 20.4434 2.33337 14C2.33337 7.55672 7.55672 2.33337 14 2.33337C20.4434 2.33337 25.6667 7.55672 25.6667 14Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
-                            Add New </button>
+                        <Link href='/admin/categories'>
+                            <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 ">
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 9.33337V18.6667M9.33337 14H18.6667M25.6667 14C25.6667 20.4434 20.4434 25.6667 14 25.6667C7.55672 25.6667 2.33337 20.4434 2.33337 14C2.33337 7.55672 7.55672 2.33337 14 2.33337C20.4434 2.33337 25.6667 7.55672 25.6667 14Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                Add New </button>
+                        </Link>
+
                     </div>
                 </div>
 

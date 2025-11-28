@@ -2,7 +2,14 @@
 import { useState } from "react"
 import * as React from "react"
 
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import {
     Table,
     TableBody,
@@ -12,17 +19,31 @@ import {
     TableCell
 } from "@/components/ui/table"
 
-
+import Select from 'react-select';
 // importing here
 
 
 import { users } from "@/app/constants/user"
 
+
 export default function Page() {
     const [objData, setObjData] = useState(users)
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [modalopen, setModalOpen] = useState(false);
+
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+    ]
 
 
+    const handleSubmit = (e) => {
+        e.preventDefault(); // page refresh ko rokta hai
+        // yahan apna form data handle kar sakte ho
+        console.log("Form submitted without refresh!");
+        setModalOpen(false)
+    }
     // ---------------- Pagination State ----------------
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
@@ -67,7 +88,7 @@ export default function Page() {
 
                 <div className="flex items-center justify-between">
                     <h1 className="text-[32px] font-semibold uppercase">Users</h1>
-                    <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 ">
+                    <button className="btn-primary text-[14px] font-medium px-3  flex items-center justify-center gap-2 " onClick={() => setModalOpen(true)}>
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14 9.33337V18.6667M9.33337 14H18.6667M25.6667 14C25.6667 20.4434 20.4434 25.6667 14 25.6667C7.55672 25.6667 2.33337 20.4434 2.33337 14C2.33337 7.55672 7.55672 2.33337 14 2.33337C20.4434 2.33337 25.6667 7.55672 25.6667 14Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
                         Add New </button>
                 </div>
@@ -187,6 +208,50 @@ export default function Page() {
                 </div>
 
             </div>
+            <Dialog open={modalopen} onOpenChange={setModalOpen}>
+                <DialogContent className='bg-(--dark7) shadow-[0_0_16.3px_0px_#FFFFFF7A] border-1 border-white'>
+                    <DialogHeader className='text-white font-semibold text-[32px]'>
+                        <DialogTitle className='border-b border-[#FFFFFF3D] pb-3'>
+                            ADD USER
+                        </DialogTitle>
+                        <DialogDescription>
+                            <form action="" onSubmit={handleSubmit} >
+                                <div className="mt-3">
+                                    <label htmlFor=" " className='text-white font-medium text-[14px]'>
+                                        Cashier Name
+                                    </label>
+                                    <input type="text" className="form-control w-full block mt-2" />
+                                </div>
+                                <div className="mt-3">
+                                    <label htmlFor=" " className='text-white font-medium text-[14px]'>
+                                        Email
+                                    </label>
+                                    <input type="email" className="form-control w-full block mt-2" />
+                                </div>
+                                <div className="mt-3">
+                                    <label htmlFor=" " className='text-white font-medium text-[14px]'>
+                                        Phone Number
+                                    </label>
+                                    <input type="number" className="form-control w-full block mt-2" />
+                                </div>
+                                <div className="mt-3 multiReactSelectContainer">
+                                    <label htmlFor=" " className='text-white font-medium text-[14px]'>
+                                        Subcategory
+                                    </label>
+
+                                    <Select options={options} classNamePrefix="react-select" className='mt-2 react-select-container' />
+                                </div>
+
+                                <div className="flex justify-end mt-4">
+                                    <button type="submit" className='btn-primary px-6 text-white' >Add</button>
+                                </div>
+                            </form>
+
+                        </DialogDescription>
+
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
         </>
     )
 }

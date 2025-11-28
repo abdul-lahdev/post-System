@@ -283,6 +283,10 @@ button[data-dialog-close] {
        background-color: #323436 !important;
     }
   }
+
+  .react-select__single-value{
+    color: #fff !important;
+  }
 }
 .react-select__option {
   background-color: transparent !important;

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-
+import { useHotels } from '@/context/HotelContext'
 
 import { usePathname } from 'next/navigation'
 
@@ -14,6 +14,10 @@ import {
 } from "@/components/ui/tooltip"
 
 export default function LeftBar() {
+
+
+    const { setStep, setHotel, hotelData } = useHotels();
+
 
     const menuItems = [
         {
@@ -57,7 +61,10 @@ export default function LeftBar() {
                 <ul className='mt-10 flex flex-col items-center'>
 
                     {menuItems.map((item, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => {
+                            setStep('categories')
+                            setHotel(hotelData[0].name)
+                        }}>
                             <Tooltip placement="right">
                                 <TooltipTrigger asChild>
                                     <Link href={item.href} className={`hover:shadow-[inset_0px_2px_8px_0px_#FFFFFF66] w-[58px] h-[52px] hover:bg-[#FFFFFF29] flex justify-center items-center rounded-[15px] mb-4 ${pathname === item.href ? 'bg-[#FFFFFF29] shadow-[inset_0px_2px_8px_0px_#FFFFFF66]' : ''}`}>
