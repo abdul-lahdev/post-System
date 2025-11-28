@@ -32,9 +32,9 @@ export default function Page() {
     const [modalopen, setModalOpen] = useState(false);
 
     const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
+        { value: 'New Hotel', label: 'New Hotel' },
+        { value: 'City Mall', label: 'City Mall' },
+        { value: 'Lake View Resort', label: 'Lake View Resort' }
     ]
 
 
@@ -236,7 +236,7 @@ export default function Page() {
                                 </div>
                                 <div className="mt-3 multiReactSelectContainer">
                                     <label htmlFor=" " className='text-white font-medium text-[14px]'>
-                                        Subcategory
+                                        Branch
                                     </label>
 
                                     <Select options={options} classNamePrefix="react-select" className='mt-2 react-select-container' />

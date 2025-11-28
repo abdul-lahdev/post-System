@@ -72,6 +72,26 @@ export default function Page() {
             };
         });
     };
+
+
+    const removeItemFromCart = (item, setCart) => {
+        setCart((prev) => {
+            const existing = prev[item.id];
+            if (!existing) return prev;
+
+            if (existing.quantity <= 1) {
+                const updated = { ...prev };
+                delete updated[item.id];
+                return updated;
+            }
+
+            return {
+                ...prev,
+                [item.id]: { ...existing, quantity: existing.quantity - 1 }
+            };
+        });
+    };
+
     // const quantity = cart[item.id]?.quantity || 0;
 
 
@@ -429,20 +449,25 @@ export default function Page() {
                                                         </td>
                                                         <td className="rounded-r-2xl">
                                                             {/* <p className="text-white font-medium text-[18px]">${item.price * item.quantity}</p> */}
-                                                            <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
-                                                                $ <input
-                                                                    type="number"
-                                                                    value={(item.price * item.quantity).toFixed(2)}
-                                                                    onChange={(e) => handlePriceChange(item.id, e.target.value)}
-                                                                    className="w-[72px] bg-transparent border-none text-white"
-                                                                />
+                                                            <div className="flex items-center justify-between pr-5">
+                                                                <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
+                                                                    $ <input
+                                                                        type="number"
+                                                                        value={(item.price * item.quantity).toFixed(2)}
+                                                                        onChange={(e) => handlePriceChange(item.id, e.target.value)}
+                                                                        className="w-[72px] bg-transparent border-none text-white"
+                                                                    />
 
-                                                            </div>
-                                                            {/* <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
+                                                                </div>
+                                                                {/* <div className="bg-[#FFFFFF1A] border border-[#FFFFFF0F] flex items-center gap-2 rounded-xl px-2 py-2 w-max">
                                                             $ <input type="number" value={item.price * item.quantity} className="w-[72px]" />
                                                         </div> */}
-
+                                                                <span onClick={() => removeItemFromCart(item, setCart)} className="cursor-pointer">
+                                                                    X
+                                                                </span>
+                                                            </div>
                                                         </td>
+
                                                     </tr>
                                                 ))
 
