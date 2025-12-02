@@ -20,11 +20,15 @@ import {
 } from "@/components/ui/native-select"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Select from 'react-select';
 
 import { Separator } from "@/components/ui/separator"
 export default function Page() {
     // Step controller: categories → subcategories → products
-
+    const options = [
+        { value: 'Provisional ticket', label: 'Provisional ticket' },
+        { value: 'Payment', label: 'Payment' },
+    ]
 
     const { hotel, hotelData, step, setStep } = useHotels();
 
@@ -289,7 +293,7 @@ export default function Page() {
 
                     <div>
                         <div className="flex items-center gap-3">
-                            <button onClick={goBack}>
+                            <button onClick={goBack} className="cursor-pointer">
                                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clipPath="url(#clip0_2_9771)"> <path d="M24.5 12.8333H7.96833L12.145 8.645L10.5 7L3.5 14L10.5 21L12.145 19.355L7.96833 15.1667H24.5V12.8333Z" fill="white" /> </g> <defs> <clipPath id="clip0_2_9771"> <rect width="28" height="28" fill="white" /> </clipPath> </defs> </svg>
                             </button>
                             <h2 className="text-white text-[28px] font-semibold" >SUBCATEGORIES
@@ -327,7 +331,7 @@ export default function Page() {
                 step === "products" && (
                     <div>
                         <div className="flex items-center gap-3">
-                            <button onClick={goBack} className="inline-block">
+                            <button onClick={goBack} className="inline-block cursor-pointer">
                                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clipPath="url(#clip0_2_9771)"> <path d="M24.5 12.8333H7.96833L12.145 8.645L10.5 7L3.5 14L10.5 21L12.145 19.355L7.96833 15.1667H24.5V12.8333Z" fill="white" /> </g> <defs> <clipPath id="clip0_2_9771"> <rect width="28" height="28" fill="white" /> </clipPath> </defs> </svg>
                             </button>
                             <h2 className="text-white text-[28px] font-semibold">PRODUCTS
@@ -482,8 +486,10 @@ export default function Page() {
                                                 <td>
 
                                                 </td>
-                                                <td className="rounded-r-2xl text-white text-end">
-                                                    <div className="bg-[#333333CC] h-8 rounded-xl flex items-center justify-center">Payment</div>
+                                                <td className="rounded-r-2xl text-white text-center multiReactSelectContainer">
+                                                    {/* <div className="bg-[#333333CC] h-8 rounded-xl flex items-center justify-center">Payment</div> */}
+                                                    <Select options={options} classNamePrefix="react-select" className='mt-2 react-select-container' />
+
                                                 </td>
                                             </tr>
 
@@ -506,7 +512,7 @@ export default function Page() {
 
                                                 </td>
                                                 <td className="py-2 pl-4 rounded-l-2xl text-white text-end">
-                                                    12%
+                                                    15%
                                                 </td>
                                             </tr>
 

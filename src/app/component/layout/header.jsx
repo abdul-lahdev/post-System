@@ -29,7 +29,7 @@ export default function Header() {
                 <svg className="absolute left-0 top-0 translate-3 " width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M24.5 24.5L17.5001 17.5M19.8333 11.6667C19.8333 16.177 16.177 19.8333 11.6667 19.8333C7.15634 19.8333 3.5 16.177 3.5 11.6667C3.5 7.15634 7.15634 3.5 11.6667 3.5C16.177 3.5 19.8333 7.15634 19.8333 11.6667Z" stroke="white" strokeOpacity="0.8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <input type="text" className="rounded-2xl pl-11 pr-3 w-[451px] h-[50px] bg-(--dark2) border border-(--grey1) " placeholder="Search" />
+                <input type="text" className="rounded-2xl pl-11 pr-3 min-w-[451px]  h-[50px] bg-(--dark2) border border-(--grey1) " placeholder="Search" />
             </div>
             <div className="flex items-center gap-3">
                 <div>

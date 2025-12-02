@@ -8,11 +8,14 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 });
 
 const RevenueChart = () => {
+    const dataValues = [1500, 2500, 1800, 1300, 3700, 3000, 1600, 2500, 1900, 1100, 1100, 3100];
+    const maxValue = Math.max(...dataValues);
+
     const [state] = React.useState({
         series: [
             {
                 name: "Net Profit",
-                data: [1500, 2500, 1800, 1300, 3700, 3000, 1600, 2500, 1900, 1100, 1100, 3100],
+                data: dataValues,
             },
         ],
 
@@ -27,13 +30,13 @@ const RevenueChart = () => {
             plotOptions: {
                 bar: {
                     horizontal: false,
-                    columnWidth: "45%",
+                    columnWidth: "80%",
                     borderRadius: 10,
                     borderRadiusApplication: "around",
                 },
             },
 
-            colors: ["#5BA8FF"],
+            colors: ["#78B3FF"],
 
             fill: {
                 type: "gradient",
@@ -41,15 +44,26 @@ const RevenueChart = () => {
                     shade: "light",
                     type: "vertical",
                     shadeIntensity: 0.3,
-                    gradientToColors: ["#2D8CFF"],
+                    gradientToColors: ["#3290FF"],
                     opacityFrom: 1,
                     opacityTo: 1,
                     stops: [0, 100],
                 },
             },
-
             dataLabels: {
-                enabled: false,
+                enabled: true,
+                formatter: (value) => {
+                    const percentage = Math.round((value / maxValue) * 100);
+                    return `${percentage}%`;
+                },
+                style: {
+                    colors: ["#FFFFFF"],
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    position: 'bottom',
+                },
+                position: 'bottom',
+                offsetY: -20, // move label upward
             },
 
             stroke: {
@@ -102,6 +116,7 @@ const RevenueChart = () => {
             },
         },
     });
+
 
     return (
         <div>

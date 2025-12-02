@@ -113,8 +113,8 @@ function Page() {
     return (
         <div className="text-white px-5 pt-8">
             <h1 className="text-[32px] font-semibold uppercase">Dashboard</h1>
-            <div className="grid lg:grid-cols-[3fr_1fr] md:grid-col-1 gap-4 mt-8 ">
-                <div className="bg-(--dark1) border border-(--grey1) p-5 rounded-[20px]">
+            <div className="grid xl:grid-cols-[3fr_1fr] md:grid-col-1 gap-4 mt-8 ">
+                <div className="order-2 xl:order-1 bg-(--dark1) border border-(--grey1) p-5 rounded-[20px]">
                     <div className="flex items-center justify-between">
                         <h1 className="text-white font-medium text-[24px]">Total Revenue</h1>
                         <div className="flex flex-col gap-3">
@@ -148,7 +148,7 @@ function Page() {
                         <RevenueChart />
                     </div>
                 </div>
-                <div className="h-full flex flex-col justify-between gap-4">
+                <div className="order-1 xl:order-2 h-full flex flex-col justify-between gap-4">
                     {
                         dashboardCards.map((item, index) =>
                             <div key={index} className="bg-(--dark1) border border-(--grey1) p-5 rounded-3xl h-[33%] flex items-center justify-between">
@@ -163,7 +163,7 @@ function Page() {
                         )
                     }
                 </div>
-                <div className="bg-(--dark1) border border-(--grey1) p-5 rounded-[20px] overflow-hidden">
+                <div className="order-4 xl:order-3 bg-(--dark1) border border-(--grey1) p-5 rounded-[20px] overflow-hidden">
                     <div>
                         <h1 className="text-white font-medium text-[24px]">Recent Orders</h1>
 
@@ -323,7 +323,7 @@ function Page() {
 
 
                 </div>
-                <div className="bg-(--dark1) border border-(--grey1) p-5 rounded-[20px]">
+                <div className="order-3 xl:order-4 bg-(--dark1) border border-(--grey1) p-5 rounded-[20px]">
 
                     <div className="flex items-center justify-between">
                         <h1 className="text-white font-medium text-[24px]">Recent Orders</h1>

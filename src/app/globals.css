@@ -304,3 +304,6 @@ button[data-dialog-close] {
 .react-select__option--is-selected {
   background-color: #323436 !important; /* or transparent */
 }
+.react-select__indicator-separator{
+  display: none;
+}
