@@ -19,8 +19,29 @@ import {
     NativeSelectOption,
 } from "@/components/ui/native-select"
 
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Select from 'react-select';
+
+import ImageUploader from "@/app/component/categories/image-uploader";
 
 import { Separator } from "@/components/ui/separator"
 export default function Page() {
@@ -337,6 +358,53 @@ export default function Page() {
                             <h2 className="text-white text-[28px] font-semibold">PRODUCTS
                                 {/* {selectedSubCategory} */}
                             </h2>
+
+                            <Dialog>
+                                <DialogTrigger className='btn-primary px-6 flex items-center gap-2 ml-auto'>
+                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M14.0002 9.33325V18.6666M9.3335 13.9999H18.6668M25.6668 13.9999C25.6668 20.4432 20.4435 25.6666 14.0002 25.6666C7.55684 25.6666 2.3335 20.4432 2.3335 13.9999C2.3335 7.5566 7.55684 2.33325 14.0002 2.33325C20.4435 2.33325 25.6668 7.5566 25.6668 13.9999Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                    Add New
+                                </DialogTrigger>
+                                <DialogContent className='bg-(--dark7) shadow-[0_0_16.3px_0px_#FFFFFF7A] border-1 border-white'>
+                                    <DialogHeader className='text-white font-semibold text-[32px]'>
+                                        <DialogTitle className='border-b border-[#FFFFFF3D] pb-3'>
+                                            ADD USER
+                                        </DialogTitle>
+                                        <DialogDescription>
+                                            <form action="">
+                                                <div className="mt-3">
+                                                    <label htmlFor=" " className='text-white font-medium text-[14px]'>
+                                                        Product Name
+                                                    </label>
+                                                    <input type="text" className="form-control w-full block mt-2" />
+                                                </div>
+                                                <div className="mt-3">
+                                                    <label htmlFor=" " className='text-white font-medium text-[14px]'>
+                                                        Price
+                                                    </label>
+                                                    <input type="number" className="form-control w-full block mt-2" />
+                                                </div>
+
+
+                                                <div className='mt-3'>
+                                                    <ImageUploader />
+                                                </div>
+                                                <div className='mt-6 flex justify-end gap-3 '>
+                                                    <DialogClose asChild className='cursor-pointer'>
+                                                        <Button variant="outline" className='btn-secondary h-12 rounded-[12px] border border-[#FFFFFF3D] '>Cancel</Button>
+                                                    </DialogClose>
+                                                    <Button type="submit" className='btn-primary px-8' >Add User</Button>
+
+                                                </div>
+                                            </form>
+
+
+
+                                        </DialogDescription>
+
+                                    </DialogHeader>
+                                </DialogContent>
+                            </Dialog>
+
                         </div>
 
                         <div className={`grid ${Object.keys(cart).length ? 'grid grid-cols-2 gap-3' : 'grid-cols-1'}`}>
@@ -357,6 +425,19 @@ export default function Page() {
                                                     alt="Picture of the author"
                                                     className="w-full h-[180px] object-cover rounded-2xl"
                                                 />
+                                                <div className="flex justify-end relative">
+                                                    <DropdownMenu>
+                                                        <DropdownMenuTrigger>
+                                                            <div className="absolute top-0 -translate-y-10 -translate-x-10 cursor-pointer bg-[#e1e1e1a6] rounded-full p-1 ">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="white" /> <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" fill="white" /> <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" fill="white" /> <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg>
+                                                            </div>
+                                                        </DropdownMenuTrigger>
+                                                        <DropdownMenuContent>
+                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                                                        </DropdownMenuContent>
+                                                    </DropdownMenu>
+                                                </div>
 
                                                 <h2 className="text-white text-center mt-2">{item.cat}</h2>
                                                 <h3 className="text-white text-center mt-1">{item.title}</h3>

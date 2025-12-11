@@ -307,3 +307,23 @@ button[data-dialog-close] {
 .react-select__indicator-separator{
   display: none;
 }
+
+
+.setFilePondCOntainer{
+
+  .filepond--root{
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .filepond--drop-label{
+    background-color: #17191b;
+    overflow: hidden;
+  }
+
+  .filepond--drop-label{
+    label{
+      color: #FFFFFFB2;
+    }
+  }
+}

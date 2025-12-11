@@ -326,7 +326,7 @@ function Page() {
                 <div className="order-3 xl:order-4 bg-(--dark1) border border-(--grey1) p-5 rounded-[20px]">
 
                     <div className="flex items-center justify-between">
-                        <h1 className="text-white font-medium text-[24px]">Recent Orders</h1>
+                        <h1 className="text-white font-medium text-[24px]">Payment Stats</h1>
                         <div className="flex flex-col gap-3">
                             <Popover open={secopen} onOpenChange={setSecOpen}>
                                 <PopoverTrigger asChild>
